@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { Component } from "react";
+import { Route, Switch } from "react-router";
+import { BrowserRouter } from "react-router-dom";
+import SignIn from "./auth/SignIn";
+import SignUp from "./auth/SignUp";
+import Dashboard from "./dashboard/Dashboard";
+import Navbar from "./layout/Navbar";
+import CreateProject from "./projects/CreateProject";
+import ProjectDetails from "./projects/ProjectDetails";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <BrowserRouter>
+        <div className="App container container-fluid">
+          <Navbar/>
+          <Switch>
+            <Route exact path="/" component={Dashboard} />
+            <Route path="/project/:project_id" component={ProjectDetails}/>
+            <Route path="/login" component={SignIn}/>
+            <Route path="/signup" component={SignUp}/>
+            <Route path="/create" component={CreateProject}/>
+          </Switch>
+        </div>
+      </BrowserRouter>
+    );
+  }
 }
 
 export default App;
