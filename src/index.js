@@ -5,12 +5,20 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap';
-import { applyMiddleware, createStore } from 'redux';
+import { applyMiddleware, compose, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './store/reducers/rootReducer';
 import thunk from 'redux-thunk';
+import { getFirebase, reactReduxFirebase, reduxFirebase } from 'react-redux-firebase';
+import { getFirestore, reduxFirestore } from 'redux-firestore';
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+
+const store = createStore(rootReducer, 
+  compose(
+    applyMiddleware(thunk.withExtraArgument({getFirebase, getFirestore})),
+    reduxFirebase(),
+    reactReduxFirebase()
+  ));
 
 ReactDOM.render(
   <React.StrictMode>
