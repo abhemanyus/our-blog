@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
+import { signinAction } from '../store/actions/authActions';
 
 class SignIn extends Component {
   state = {
@@ -12,9 +15,10 @@ class SignIn extends Component {
   };
   onSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
+    this.props.signin(this.state);
   }
   render() {
+    if (this.props.firebase.auth.uid) return <Redirect to="/"/>
     return (
       <main className="form-signin">
         <form onSubmit={this.onSubmit}>
@@ -27,6 +31,8 @@ class SignIn extends Component {
             <input onChange={this.onChange} value={this.state.password} type="password" className="form-control" id="password" placeholder="Password" />
             <label htmlFor="password">Password</label>
           </div>
+          {this.props.auth.authError ? <h2 className="text-danger text-center">Login Failed</h2> : null }
+          {this.props.auth.authSuccess ? <h2 className="text-success text-center">Login Successful</h2> : null }
           <button className="w-100 btn btn-lg btn-primary" type="submit">Log In</button>
         </form>
       </main>
@@ -34,4 +40,13 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  firebase: state.firebase
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  signin: (credentials) => dispatch(signinAction(credentials))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

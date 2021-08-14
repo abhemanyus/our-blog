@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import SignedInLinks from "./SignedInLinks";
 import SignedOutLinks from "./SignedOutLinks";
+import { connect } from "react-redux";
 
-const Navbar = () => {
+const Navbar = (props) => {
   return (
     <nav className="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Fourth navbar example">
       <div className="container-fluid">
@@ -12,12 +13,15 @@ const Navbar = () => {
         </button>
 
         <div className="collapse navbar-collapse" id="navbarMain">
-          <SignedInLinks/>
-          <SignedOutLinks/>
+          {props.auth.uid ? <SignedInLinks/> : <SignedOutLinks/>}
         </div>
       </div>
     </nav>
   );
 }
 
-export default Navbar;
+const mapStateToProps = (state) => ({
+  auth: state.firebase.auth
+});
+
+export default connect(mapStateToProps)(Navbar);
