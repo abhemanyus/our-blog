@@ -17,6 +17,7 @@ class CreateProject extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     this.props.createProject({...this.state, authorID:this.props.auth.uid});
+    this.props.history.push('/');
   }
   render() {
     if (!this.props.auth.uid) return <Redirect to="/login"/>
