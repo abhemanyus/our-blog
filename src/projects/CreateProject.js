@@ -6,7 +6,8 @@ import { createProject } from '../store/actions/projectActions';
 class CreateProject extends Component {
   state = {
     title: "",
-    content: ""
+    content: "",
+    authorID: this.props.auth.uid
   };
   onChange = (e) => {
     this.setState(prevState => Object.assign({}, prevState, {
@@ -15,7 +16,7 @@ class CreateProject extends Component {
   };
   onSubmit = (e) => {
     e.preventDefault();
-    this.props.createProject(this.state);
+    this.props.createProject({...this.state, authorID:this.props.auth.uid});
   }
   render() {
     if (!this.props.auth.uid) return <Redirect to="/login"/>
