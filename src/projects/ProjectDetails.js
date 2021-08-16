@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { Redirect } from 'react-router';
 import { compose } from 'redux';
+import moment from 'moment';
 
 function ProjectDetails(props) {
   if (!props.auth.firstName) return <Redirect to="/login"/>
@@ -14,7 +15,7 @@ function ProjectDetails(props) {
       <h1 className="display-4 fw-normal">{title}</h1>
       <pre className="lead fw-normal text-wrap">{content}</pre>
       <a className="text-decoration-underline text-muted text-capitalize" href={"/user/" + authorID}>{firstName + " " + lastName}</a>
-      <p className="footer text-muted">{createdAt && createdAt.toDate().toString()}</p>
+      <p className="footer text-muted">{createdAt && moment(createdAt.toDate()).calendar()}</p>
     </div>
   </div>
   );
