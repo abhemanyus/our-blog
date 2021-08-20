@@ -5,7 +5,7 @@ import { compose } from "redux";
 
 const { Component } = require("react");
 const { default: ProjectList } = require("../projects/ProjectList");
-const { default: Notifications } = require("./Notifications");
+// const { default: Notifications } = require("./Notifications");
 
 class Dashboard extends Component {
   render() {
@@ -15,9 +15,9 @@ class Dashboard extends Component {
         <div className="col-12 col-md-7">
           <ProjectList projects={this.props.projects}/>
         </div>
-        <div className="col-12 col-md-4 offset-md-1">
+        {/* <div className="col-12 col-md-4 offset-md-1">
           <Notifications/>
-        </div>
+        </div> */}
       </div>
     );
   }
