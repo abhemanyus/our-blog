@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { Route, Switch } from "react-router";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import SignIn from "./auth/SignIn";
 import SignUp from "./auth/SignUp";
 import Dashboard from "./dashboard/Dashboard";
@@ -11,18 +11,18 @@ import ProjectDetails from "./projects/ProjectDetails";
 class App extends Component {
   render() {
     return (
-      <BrowserRouter>
+      <HashRouter>
         <div className="App container container-fluid">
           <Navbar/>
           <Switch>
             <Route exact path="/" component={Dashboard} />
-            <Route exact path="/project/:project_id" component={ProjectDetails}/>
+            <Route path="/project/:project_id" component={ProjectDetails}/>
             <Route path="/login" component={SignIn}/>
             <Route path="/signup" component={SignUp}/>
             <Route path="/create" component={CreateProject}/>
           </Switch>
         </div>
-      </BrowserRouter>
+      </HashRouter>
     );
   }
 }
