@@ -1,5 +1,5 @@
 export const signinAction = (credentials) => {
-  return (dispatch, getState, {getFirebase}) => {
+  return (dispatch, _getState, {getFirebase}) => {
     const firebase = getFirebase();
     firebase.auth().signInWithEmailAndPassword(
       credentials.email,
@@ -13,7 +13,7 @@ export const signinAction = (credentials) => {
 }
 
 export const signoutAction = () => {
-  return (dispatch, getState, {getFirebase}) => {
+  return (dispatch, _getState, {getFirebase}) => {
     const firebase = getFirebase();
     firebase.auth().signOut().then( ()=> {
       dispatch({type: "LOGOUT_SUCCESS"});
@@ -24,7 +24,7 @@ export const signoutAction = () => {
 }
 
 export const signupAction = (newUser) => {
-  return (dispatch, getState, {getFirebase, getFirestore}) => {
+  return (dispatch, _getState, {getFirebase, getFirestore}) => {
     const firebase = getFirebase();
     const firestore = getFirestore();
     firebase.auth().createUserWithEmailAndPassword(
